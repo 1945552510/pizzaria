@@ -1769,4 +1769,41 @@ function checkout() {
         `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
 
     window.open(whatsappURL, "_blank");
+}function checkout() {
+
+    if (cart.length === 0) {
+        showToast("Adicione uma pizza primeiro!");
+        return;
+    }
+
+    // Número da pizzaria no formato internacional
+    const numeroWhatsApp = "5583986377231";
+
+    let mensagem = "🍕 *NOVO PEDIDO - FORNO & LENHA*%0A%0A";
+
+    cart.forEach(item => {
+
+        const subtotal = item.price * item.quantity;
+
+        mensagem +=
+            `🍕 *${item.name}*%0A` +
+            `Quantidade: ${item.quantity}%0A` +
+            `Valor: ${formatPrice(subtotal)}%0A%0A`;
+
+    });
+
+    const total = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+    );
+
+    mensagem +=
+        "━━━━━━━━━━━━━━━━━━%0A" +
+        `💰 *TOTAL: ${formatPrice(total)}*%0A%0A` +
+        "Olá! Gostaria de confirmar este pedido. 🍕";
+
+    const whatsappURL =
+        `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
+
+    window.open(whatsappURL, "_blank");
 }
