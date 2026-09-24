@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Forno & Lenha | Pizzaria</title>
+
+    <style>
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --laranja: #f47b20;
+            --laranja-claro: #ff9f43;
+            --laranja-escuro: #d85d08;
+
+            --marrom: #3b2115;
+            --marrom-escuro: #24130d;
+            --marrom-claro: #6b4029;
+
+            --creme: #fff8ef;
+            --branco: #ffffff;
+            --cinza: #756d68;
+
+            --verde: #198754;
+
+            --sombra: 0 12px 35px rgba(59, 33, 21, .13);
+            --radius: 18px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--marrom);
+            background: var(--creme);
+            line-height: 1.6;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+        }
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(59, 33, 21, .97);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 3px 20px rgba(0, 0, 0, .18);
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: auto;
+            min-height: 75px;
+            padding: 12px 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-size: 1.55rem;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--laranja);
+        }
+
+        nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: .25s;
+        }
+
+        nav a:hover {
+            color: var(--laranja-claro);
+        }
+
+        .cart-button {
+            background: var(--laranja);
+            color: white;
+            padding: 11px 18px;
+            border-radius: 50px;
+            font-weight: 800;
+            transition: .25s;
+            white-space: nowrap;
+        }
+
+        .cart-button:hover {
+            background: var(--laranja-claro);
+            transform: translateY(-2px);
+        }
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            min-height: 620px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(36, 19, 13, .96),
+                    rgba(59, 33, 21, .72),
+                    rgba(59, 33, 21, .25)
+                ),
+                radial-gradient(
+                    circle at 75% 40%,
+                    #ff9f43,
+                    #3b2115 45%,
+                    #24130d
+                );
+
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            margin: auto;
+            padding: 80px 20px;
+
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(244, 123, 32, .2);
+            border: 1px solid rgba(255, 159, 67, .5);
+            color: #ffd3a8;
+            padding: 7px 15px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.7rem, 6vw, 5.2rem);
+            line-height: 1.02;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: var(--laranja);
+        }
+
+        .hero p {
+            max-width: 600px;
+            color: #eaded8;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .primary-button,
+        .secondary-button {
+            display: inline-block;
+            padding: 14px 23px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            transition: .25s;
+        }
+
+        .primary-button {
+            background: var(--laranja);
+            color: white;
+        }
+
+        .primary-button:hover {
+            background: var(--laranja-claro);
+            transform: translateY(-3px);
+        }
+
+        .secondary-button {
+            border: 1px solid rgba(255,255,255,.4);
+            color: white;
+        }
+
+        .secondary-button:hover {
+            background: rgba(255,255,255,.1);
+        }
+
+        .hero-pizza {
+            min-height: 390px;
+            border-radius: 50%;
+            max-width: 390px;
+            width: 100%;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11rem;
+
+            background:
+                radial-gradient(
+                    circle,
+                    #ffcc80 0 40%,
+                    #d85d08 41% 70%,
+                    #3b2115 71%
+                );
+
+            box-shadow:
+                0 0 0 15px rgba(255,255,255,.06),
+                0 30px 70px rgba(0,0,0,.35);
+        }
+
+        /* =====================================================
+           SEÇÕES
+        ===================================================== */
+
+        section {
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+
+        .section-title p {
+            color: var(--cinza);
+        }
+
+        /* =====================================================
+           CONTROLES
+        ===================================================== */
+
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        .search {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid #eadbd0;
+            border-radius: 50px;
+            outline: none;
+            background: white;
+        }
+
+        .search input:focus {
+            border-color: var(--laranja);
+        }
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter {
+            padding: 10px 16px;
+            border-radius: 50px;
+            background: white;
+            color: var(--marrom);
+            border: 1px solid #eadbd0;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        .filter.active,
+        .filter:hover {
+            background: var(--marrom);
+            color: white;
+        }
+
+        /* =====================================================
+           PRODUTOS
+        ===================================================== */
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .product {
+            overflow: hidden;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--sombra);
+            transition: .3s;
+        }
+
+        .product:hover {
+            transform: translateY(-7px);
+        }
+
+        .product-image {
+            height: 225px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 7rem;
+
+            background:
+                radial-gradient(
+                    circle,
+                    #ffd08a,
+                    #ff9f43 55%,
+                    #d85d08
+                );
+        }
+
+        .product:nth-child(2n) .product-image {
+            background:
+                radial-gradient(
+                    circle,
+                    #ffe0a8,
+                    #e9781c 55%,
+                    #6b4029
+                );
+        }
+
+        .product-info {
+            padding: 22px;
+        }
+
+        .category {
+            color: var(--laranja-escuro);
+            font-size: .78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .product h3 {
+            margin: 5px 0;
+            font-size: 1.25rem;
+        }
+
+        .description {
+            color: var(--cinza);
+            font-size: .9rem;
+            min-height: 48px;
+            margin-bottom: 15px;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .price {
+            color: var(--marrom);
+            font-size: 1.2rem;
+            font-weight: 900;
+        }
+
+        .add-button {
+            background: var(--laranja);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            font-weight: 800;
+            transition: .2s;
+        }
+
+        .add-button:hover {
+            background: var(--laranja-escuro);
+        }
+
+        .empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 45px;
+            color: var(--cinza);
+        }
+
+        /* =====================================================
+           DIFERENCIAIS
+        ===================================================== */
+
+        .features {
+            background: #fff0df;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .feature {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: var(--radius);
+            box-shadow: var(--sombra);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+
+        .feature p {
+            color: var(--cinza);
+            margin-top: 8px;
+        }
+
+        /* =====================================================
+           SOBRE
+        ===================================================== */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            gap: 55px;
+            align-items: center;
+        }
+
+        .about-image {
+            min-height: 370px;
+            border-radius: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 9rem;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--laranja),
+                    var(--marrom)
+                );
+
+            box-shadow: var(--sombra);
+        }
+
+        .about h2 {
+            font-size: 2.6rem;
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            color: var(--cinza);
+            margin-bottom: 15px;
+        }
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            background: var(--marrom-escuro);
+            color: white;
+            padding: 55px 20px 25px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 45px;
+        }
+
+        footer h3 {
+            color: var(--laranja);
+            margin-bottom: 15px;
+        }
+
+        footer p,
+        footer a {
+            color: #d9cbc4;
+        }
+
+        footer a {
+            display: block;
+            text-decoration: none;
+            margin-bottom: 8px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .copyright {
+            max-width: 1200px;
+            margin: 35px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,.12);
+            text-align: center;
+            color: #ad9b91;
+            font-size: .9rem;
+        }
+
+        /* =====================================================
+           CARRINHO
+        ===================================================== */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1500;
+
+            background: rgba(0,0,0,.55);
+
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart {
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            right: -450px;
+
+            width: min(450px, 100%);
+            height: 100vh;
+
+            background: white;
+
+            display: flex;
+            flex-direction: column;
+
+            box-shadow: -10px 0 35px rgba(0,0,0,.2);
+
+            transition: .35s ease;
+        }
+
+        .cart.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 22px;
+            border-bottom: 1px solid #eee;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .close-cart {
+            background: transparent;
+            font-size: 1.8rem;
+            color: var(--marrom);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 55px 1fr auto;
+            gap: 12px;
+            align-items: center;
+
+            padding: 13px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-icon {
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #fff0df;
+            border-radius: 12px;
+
+            font-size: 1.8rem;
+        }
+
+        .cart-item h4 {
+            font-size: .95rem;
+        }
+
+        .cart-item small {
+            color: var(--cinza);
+        }
+
+        .remove {
+            background: transparent;
+            color: #c0392b;
+            font-size: .78rem;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .checkout {
+            width: 100%;
+            padding: 15px;
+            border-radius: 50px;
+
+            background: var(--verde);
+            color: white;
+
+            font-weight: 900;
+        }
+
+        .checkout:hover {
+            background: #157347;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 55px 20px;
+            color: var(--cinza);
+        }
+
+        /* =====================================================
+           TOAST
+        ===================================================== */
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 25px;
+            z-index: 3000;
+
+            transform: translate(-50%, 100px);
+
+            background: var(--marrom);
+            color: white;
+
+            padding: 13px 22px;
+            border-radius: 50px;
+
+            opacity: 0;
+            transition: .3s;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* =====================================================
+           RESPONSIVO
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .hero-content,
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-pizza {
+                min-height: 300px;
+                max-width: 300px;
+                font-size: 8rem;
+            }
+
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            nav {
+                display: none;
+            }
+
+            .navbar {
+                padding: 12px 15px;
+            }
+
+            .hero-content {
+                padding: 60px 15px;
+            }
+
+            section {
+                padding: 60px 15px;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search {
+                min-width: 100%;
+            }
+
+            .controls {
+                align-items: stretch;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .primary-button,
+            .secondary-button {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header>
+
+        <div class="navbar">
+
+            <a href="#" class="logo">
+                Forno <span>&</span> Lenha
+            </a>
+
+            <nav>
+                <a href="#inicio">Início</a>
+                <a href="#cardapio">Cardápio</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#contato">Contato</a>
+            </nav>
+
+            <button
+                class="cart-button"
+                onclick="openCart()"
+            >
+                🛒 Carrinho
+                (<span id="cart-count">0</span>)
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <main>
+
+        <section class="hero" id="inicio">
+
+            <div class="hero-content">
+
+                <div>
+
+                    <span class="hero-tag">
+                        🔥 Assada no forno à lenha
+                    </span>
+
+                    <h1>
+                        Pizza de verdade,
+                        <span>do nosso forno para sua mesa.</span>
+                    </h1>
+
+                    <p>
+                        Ingredientes selecionados, massa artesanal e aquele
+                        sabor irresistível de uma pizza preparada com carinho.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a
+                            href="#cardapio"
+                            class="primary-button"
+                        >
+                            🍕 Pedir agora
+                        </a>
+
+                        <a
+                            href="#sobre"
+                            class="secondary-button"
+                        >
+                            Conheça a pizzaria
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="hero-pizza">
+                    🍕
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CARDÁPIO
+        ====================================================== -->
+
+        <section id="cardapio">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <h2>Nosso cardápio</h2>
+
+                    <p>
+                        Escolha sua pizza favorita e monte seu pedido.
+                    </p>
+
+                </div>
+
+
+                <div class="controls">
+
+                    <div class="search">
+
+                        <input
+                            type="search"
+                            id="search"
+                            placeholder="🔎 Buscar pizza..."
+                            oninput="renderProducts()"
+                        >
+
+                    </div>
+
+
+                    <div class="filters">
+
+                        <button
+                            class="filter active"
+                            data-category="todas"
+                            onclick="setCategory('todas')"
+                        >
+                            Todas
+                        </button>
+
+                        <button
+                            class="filter"
+                            data-category="tradicionais"
+                            onclick="setCategory('tradicionais')"
+                        >
+                            Tradicionais
+                        </button>
+
+                        <button
+                            class="filter"
+                            data-category="especiais"
+                            onclick="setCategory('especiais')"
+                        >
+                            Especiais
+                        </button>
+
+                        <button
+                            class="filter"
+                            data-category="doces"
+                            onclick="setCategory('doces')"
+                        >
+                            Doces
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="products"
+                    id="products"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             DIFERENCIAIS
+        ====================================================== -->
+
+        <section class="features">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <h2>Por que escolher a Forno & Lenha?</h2>
+
+                </div>
+
+
+                <div class="feature-grid">
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            🔥
+                        </div>
+
+                        <h3>Forno à lenha</h3>
+
+                        <p>
+                            Pizzas assadas em alta temperatura para uma massa
+                            crocante e saborosa.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            🧀
+                        </div>
+
+                        <h3>Ingredientes selecionados</h3>
+
+                        <p>
+                            Ingredientes escolhidos para garantir sabor e
+                            qualidade em cada pedido.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            🚀
+                        </div>
+
+                        <h3>Entrega rápida</h3>
+
+                        <p>
+                            Seu pedido preparado com agilidade para chegar
+                            quentinho até você.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             SOBRE
+        ====================================================== -->
+
+        <section id="sobre">
+
+            <div class="container">
+
+                <div class="about-grid">
+
+                    <div class="about-image">
+                        🍕
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Tradição, sabor e muito queijo.
+                        </h2>
+
+                        <p>
+                            A Forno & Lenha nasceu com uma missão simples:
+                            preparar pizzas deliciosas usando ingredientes
+                            de qualidade e uma receita artesanal.
+                        </p>
+
+                        <p>
+                            Nossa massa é preparada com cuidado e nossas
+                            pizzas são montadas na hora para que você receba
+                            uma experiência especial em cada pedido.
+                        </p>
+
+                        <p>
+                            Do primeiro ingrediente ao último pedaço,
+                            tudo é pensado para você.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer id="contato">
+
+        <div class="footer-grid">
+
+            <div>
+
+                <h3>Forno & Lenha</h3>
+
+                <p>
+                    Pizza artesanal, ingredientes selecionados e muito sabor
+                    para deixar sua noite ainda melhor.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>Links</h3>
+
+                <a href="#inicio">Início</a>
+                <a href="#cardapio">Cardápio</a>
+                <a href="#sobre">Sobre nós</a>
+
+            </div>
+
+
+            <div>
+
+                <h3>Contato</h3>
+
+                <a href="#">📱 WhatsApp</a>
+                <a href="#">📷 Instagram</a>
+                <a href="#">📍 Nossa loja</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+            © 2026 Forno & Lenha — Todos os direitos reservados.
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         CARRINHO
+    ====================================================== -->
+
+    <div
+        class="overlay"
+        id="overlay"
+        onclick="closeCart()"
+    ></div>
+
+
+    <aside
+        class="cart"
+        id="cart"
+    >
+
+        <div class="cart-header">
+
+            <h2>Seu pedido 🍕</h2>
+
+            <button
+                class="close-cart"
+                onclick="closeCart()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            class="cart-items"
+            id="cart-items"
+        ></div>
+
+
+        <div class="cart-footer">
+
+            <div class="total">
+
+                <span>Total</span>
+
+                <span id="cart-total">
+                    R$ 0,00
+                </span>
+
+            </div>
+
+
+            <button
+                class="checkout"
+                onclick="checkout()"
+            >
+                Finalizar pedido
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <div
+        class="toast"
+        id="toast"
+    ></div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        /* =====================================================
+           PRODUTOS
+        ===================================================== */
+
+        const products = [
+
+            {
+                id: 1,
+                name: "Calabresa",
+                category: "tradicionais",
+                price: 39.90,
+                icon: "🍕",
+                description:
+                    "Molho de tomate, muçarela, calabresa e cebola."
+            },
+
+            {
+                id: 2,
+                name: "Margherita",
+                category: "tradicionais",
+                price: 42.90,
+                icon: "🍕",
+                description:
+                    "Muçarela, tomate, manjericão e molho especial."
+            },
+
+            {
+                id: 3,
+                name: "Frango com Catupiry",
+                category: "tradicionais",
+                price: 44.90,
+                icon: "🍕",
+                description:
+                    "Frango desfiado, muçarela e catupiry cremoso."
+            },
+
+            {
+                id: 4,
+                name: "Quatro Queijos",
+                category: "especiais",
+                price: 49.90,
+                icon: "🍕",
+                description:
+                    "Muçarela, provolone, parmesão e gorgonzola."
+            },
+
+            {
+                id: 5,
+                name: "Bacon Especial",
+                category: "especiais",
+                price: 47.90,
+                icon: "🍕",
+                description:
+                    "Muçarela, bacon crocante, milho e cebola."
+            },
+
+            {
+                id: 6,
+                name: "Chocolate com Morango",
+                category: "doces",
+                price: 39.90,
+                icon: "🍫",
+                description:
+                    "Chocolate cremoso, morangos e chocolate granulado."
+            },
+
+            {
+                id: 7,
+                name: "Nutella com Banana",
+                category: "doces",
+                price: 42.90,
+                icon: "🍌",
+                description:
+                    "Creme de avelã, banana e açúcar de confeiteiro."
+            },
+
+            {
+                id: 8,
+                name: "Portuguesa",
+                category: "especiais",
+                price: 46.90,
+                icon: "🍕",
+                description:
+                    "Presunto, ovos, cebola, ervilha e muçarela."
+            },
+
+            {
+                id: 9,
+                name: "Pepperoni",
+                category: "especiais",
+                price: 48.90,
+                icon: "🍕",
+                description:
+                    "Pepperoni, muçarela e molho de tomate artesanal."
+            }
+
+        ];
+
+
+        /* =====================================================
+           ESTADO
+        ===================================================== */
+
+        let cart = [];
+
+        let currentCategory = "todas";
+
+
+        /* =====================================================
+           FORMATAÇÃO DE PREÇO
+        ===================================================== */
+
+        function formatPrice(value) {
+
+            return value.toLocaleString(
+                "pt-BR",
+                {
+                    style: "currency",
+                    currency: "BRL"
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           RENDERIZAR PRODUTOS
+        ===================================================== */
+
+        function renderProducts() {
+
+            const container =
+                document.getElementById("products");
+
+            const search =
+                document
+                    .getElementById("search")
+                    .value
+                    .toLowerCase()
+                    .trim();
+
+
+            const filtered =
+                products.filter(product => {
+
+                    const categoryMatch =
+                        currentCategory === "todas" ||
+                        product.category === currentCategory;
+
+                    const searchMatch =
+                        product.name
+                            .toLowerCase()
+                            .includes(search);
+
+                    return categoryMatch && searchMatch;
+
+                });
+
+
+            if (filtered.length === 0) {
+
+                container.innerHTML = `
+                    <div class="empty">
+                        <h3>Nenhuma pizza encontrada.</h3>
+                        <p>
+                            Tente pesquisar por outro sabor.
+                        </p>
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                filtered.map(product => `
+
+                    <article class="product">
+
+                        <div class="product-image">
+                            ${product.icon}
+                        </div>
+
+                        <div class="product-info">
+
+                            <span class="category">
+                                ${product.category}
+                            </span>
+
+                            <h3>
+                                ${product.name}
+                            </h3>
+
+                            <p class="description">
+                                ${product.description}
+                            </p>
+
+                            <div class="product-footer">
+
+                                <span class="price">
+                                    ${formatPrice(product.price)}
+                                </span>
+
+                                <button
+                                    class="add-button"
+                                    onclick="addToCart(${product.id})"
+                                >
+                                    + Adicionar
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                `).join("");
+
+        }
+
+
+        /* =====================================================
+           CATEGORIA
+        ===================================================== */
+
+        function setCategory(category) {
+
+            currentCategory = category;
+
+
+            document
+                .querySelectorAll(".filter")
+                .forEach(button => {
+
+                    button.classList.toggle(
+                        "active",
+                        button.dataset.category === category
+                    );
+
+                });
+
+
+            renderProducts();
+
+        }
+
+
+        /* =====================================================
+           ADICIONAR AO CARRINHO
+        ===================================================== */
+
+        function addToCart(productId) {
+
+            const product =
+                products.find(
+                    item => item.id === productId
+                );
+
+
+            const existing =
+                cart.find(
+                    item => item.id === productId
+                );
+
+
+            if (existing) {
+
+                existing.quantity++;
+
+            } else {
+
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+
+            }
+
+
+            updateCart();
+
+            showToast(
+                `${product.name} adicionada ao pedido!`
+            );
+
+        }
+
+
+        /* =====================================================
+           REMOVER
+        ===================================================== */
+
+        function removeFromCart(productId) {
+
+            cart =
+                cart.filter(
+                    item => item.id !== productId
+                );
+
+            updateCart();
+
+        }
+
+
+        /* =====================================================
+           ATUALIZAR CARRINHO
+        ===================================================== */
+
+        function updateCart() {
+
+            const container =
+                document.getElementById("cart-items");
+
+            const count =
+                document.getElementById("cart-count");
+
+            const totalElement =
+                document.getElementById("cart-total");
+
+
+            const totalItems =
+                cart.reduce(
+                    (total, item) =>
+                        total + item.quantity,
+                    0
+                );
+
+
+            const totalPrice =
+                cart.reduce(
+                    (total, item) =>
+                        total +
+                        item.price * item.quantity,
+                    0
+                );
+
+
+            count.textContent = totalItems;
+
+            totalElement.textContent =
+                formatPrice(totalPrice);
+
+
+            if (cart.length === 0) {
+
+                container.innerHTML = `
+
+                    <div class="empty-cart">
+
+                        <div style="font-size:4rem">
+                            🍕
+                        </div>
+
+                        <h3>
+                            Seu pedido está vazio
+                        </h3>
+
+                        <p>
+                            Escolha uma pizza deliciosa
+                            para começar.
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                cart.map(item => `
+
+                    <div class="cart-item">
+
+                        <div class="cart-icon">
+                            ${item.icon}
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                ${item.name}
+                            </h4>
+
+                            <small>
+                                ${item.quantity} ×
+                                ${formatPrice(item.price)}
+                            </small>
+
+                        </div>
+
+                        <button
+                            class="remove"
+                            onclick="removeFromCart(${item.id})"
+                        >
+                            Remover
+                        </button>
+
+                    </div>
+
+                `).join("");
+
+        }
+
+
+        /* =====================================================
+           ABRIR CARRINHO
+        ===================================================== */
+
+        function openCart() {
+
+            document
+                .getElementById("cart")
+                .classList.add("active");
+
+            document
+                .getElementById("overlay")
+                .classList.add("active");
+
+        }
+
+
+        /* =====================================================
+           FECHAR CARRINHO
+        ===================================================== */
+
+        function closeCart() {
+
+            document
+                .getElementById("cart")
+                .classList.remove("active");
+
+            document
+                .getElementById("overlay")
+                .classList.remove("active");
+
+        }
+
+
+        /* =====================================================
+           CHECKOUT
+        ===================================================== */
+
+        function checkout() {
+
+            if (cart.length === 0) {
+
+                showToast(
+                    "Adicione uma pizza primeiro!"
+                );
+
+                return;
+
+            }
+
+
+            const total =
+                cart.reduce(
+                    (sum, item) =>
+                        sum +
+                        item.price * item.quantity,
+                    0
+                );
+
+
+            showToast(
+                `Pedido pronto! Total: ${formatPrice(total)}`
+            );
+
+        }
+
+
+        /* =====================================================
+           TOAST
+        ===================================================== */
+
+        let toastTimer;
+
+
+        function showToast(message) {
+
+            const toast =
+                document.getElementById("toast");
+
+
+            toast.textContent = message;
+
+            toast.classList.add("show");
+
+
+            clearTimeout(toastTimer);
+
+
+            toastTimer =
+                setTimeout(() => {
+
+                    toast.classList.remove("show");
+
+                }, 2500);
+
+        }
+
+
+        /* =====================================================
+           INICIALIZAÇÃO
+        ===================================================== */
+
+        renderProducts();
+
+        updateCart();
+
+    </script>
+
+</body>
+</html>
+function checkout() {
+
+    if (cart.length === 0) {
+        showToast("Adicione uma pizza primeiro!");
+        return;
+    }
+
+    // Número da pizzaria no formato internacional
+    const numeroWhatsApp = "5583986377231";
+
+    let mensagem = "🍕 *NOVO PEDIDO - FORNO & LENHA*%0A%0A";
+
+    cart.forEach(item => {
+
+        const subtotal = item.price * item.quantity;
+
+        mensagem +=
+            `🍕 *${item.name}*%0A` +
+            `Quantidade: ${item.quantity}%0A` +
+            `Valor: ${formatPrice(subtotal)}%0A%0A`;
+
+    });
+
+    const total = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+    );
+
+    mensagem +=
+        "━━━━━━━━━━━━━━━━━━%0A" +
+        `💰 *TOTAL: ${formatPrice(total)}*%0A%0A` +
+        "Olá! Gostaria de confirmar este pedido. 🍕";
+
+    const whatsappURL =
+        `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
+
+    window.open(whatsappURL, "_blank");
+}
